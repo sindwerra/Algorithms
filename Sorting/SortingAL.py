@@ -108,3 +108,39 @@ class Mode:
         right = self.merge_sort(lst[n / 2 : ], n - n / 2)
         result = self.__merge(left, right)
         return result
+
+    # def __partition(self, lst, ):
+    #     pass
+
+    def Python_QS(self, lst):
+        """
+        :Pythonic快速排序，平均时间复杂度O(nlgn)
+        :type lst: List
+        :rtyep: List
+        """
+        if len(lst) <= 1: return lst
+        else:
+            pivot = lst[0]
+            return self.Python_QS([x for x in lst[1 : ] if x < pivot]) + \
+                [pivot] + self.Python_QS([x for x in lst[1:] if x >= pivot])
+
+    def counting_sort(self, lst):
+        """
+        :计数排序，平均时间复杂度O(mn)
+        :type lst: List
+        :rtype: List
+        """
+        temp = [0] * max(lst)
+        result = [0] * n
+
+        for a in lst:
+            temp[a] += 1
+
+        for b in xrange(1, len(temp)):
+            temp[b] += temp[b - 1]
+
+        for c in xrange(len(lst) - 1, -1, -1):
+            result[temp[lst[c]] - 1] = lst[c]
+            temp[lst[c]] -= 1
+
+        return result

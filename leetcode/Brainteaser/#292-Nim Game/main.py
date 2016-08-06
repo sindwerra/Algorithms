@@ -40,4 +40,3 @@ class Solution(object):
         # 第三种返回方式，比65%的人快
 
         return True if n % 4 != 0 else False
-        
