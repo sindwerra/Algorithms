@@ -109,8 +109,41 @@ class Mode:
         result = self.__merge(left, right)
         return result
 
-    # def __partition(self, lst, ):
-    #     pass
+    def __partition(self, lst, st, ed):
+        """
+        :传统快速排序，O(nlgn)
+        :type lst: List
+        :type st: int
+        :type ed: int
+        :rtype: int
+        """
+        
+        if st >= ed: return ed
+        
+        pivot, last = lst[ed], ed
+        
+        while st <= ed - 1:
+            while st <= ed - 1 and lst[st] < pivot: st += 1
+            while ed >= st and lst[ed] >= pivot: ed -= 1
+            if ed >= st: lst[ed], lst[st] = lst[st], lst[ed]
+            
+        if lst[st] >= pivot: lst[st], lst[last] = lst[last], lst[st]
+        
+        return st
+        
+    def Classical_QS(self, lst, st, ed):
+        """
+        :传统快速排序主函数, O(nlgn)
+        :type lst: List
+        :type st: int
+        :type ed: int
+        :None return 
+        """
+        
+        if st < ed:
+            bound = self.__partition(lst, st, ed)
+            self.Classical_QS(lst, st, bound - 1)
+            self.Classical_QS(lst, bound + 1, ed)
 
     def Python_QS(self, lst):
         """
