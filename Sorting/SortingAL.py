@@ -130,6 +130,15 @@ class Mode:
         if lst[st] >= pivot: lst[st], lst[last] = lst[last], lst[st]
         
         return st
+    
+    def __randomized_partition(self, lst, st, ed):
+        """
+        :随机划分函数，效果优化
+        """
+        if ed <= st: return ed
+        sign = random.randint(st, ed)
+        lst[sign], lst[ed] = lst[ed], lst[sign]
+        return self.__partition(lst, st, ed)
         
     def Classical_QS(self, lst, st, ed):
         """
@@ -142,6 +151,7 @@ class Mode:
         
         if st < ed:
             bound = self.__partition(lst, st, ed)
+            bound = self.__randomized_partition(lst, st, ed)
             self.Classical_QS(lst, st, bound - 1)
             self.Classical_QS(lst, bound + 1, ed)
 
