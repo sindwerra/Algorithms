@@ -2,6 +2,8 @@
 
 # 造轮子工程第一期
 
+import random
+
 class Mode:
     def __init__(self):
         pass
@@ -103,14 +105,59 @@ class Mode:
         :type n: int
         :rtype: List
         """
+
         if n <= 1: return lst
         left = self.merge_sort(lst[ : n / 2], n / 2)
         right = self.merge_sort(lst[n / 2 : ], n - n / 2)
         result = self.__merge(left, right)
         return result
 
-    # def __partition(self, lst, ):
-    #     pass
+    def __partition(self, lst, st, ed):
+        """
+        :传统快速排序，O(nlgn)
+        :type lst: List
+        :type st: int
+        :type ed: int
+        :rtype: int
+        """
+
+        if st >= ed: return ed
+
+        pivot, last = lst[ed], ed
+
+        while st <= ed - 1:
+            while st <= ed - 1 and lst[st] < pivot: st += 1
+            while ed >= st and lst[ed] >= pivot: ed -= 1
+            if ed >= st: lst[ed], lst[st] = lst[st], lst[ed]
+
+        if lst[st] >= pivot: lst[st], lst[last] = lst[last], lst[st]
+
+        return st
+
+    def __randomized_partition(self, lst, st, ed):
+        """
+        :随机划分函数，效果优化
+        """
+
+        if ed <= st: return ed
+        sign = random.randint(st, ed)
+        lst[sign], lst[ed] = lst[ed], lst[sign]
+        return self.__partition(lst, st, ed)
+
+    def Classical_QS(self, lst, st, ed):
+        """
+        :传统快速排序主函数, O(nlgn)
+        :type lst: List
+        :type st: int
+        :type ed: int
+        :None return
+        """
+
+        if st < ed:
+            bound = self.__partition(lst, st, ed)
+            # bound = self.__randomized_partition(lst, st, ed)    # random
+            self.Classical_QS(lst, st, bound - 1)
+            self.Classical_QS(lst, bound + 1, ed)
 
     def Python_QS(self, lst):
         """
@@ -118,6 +165,7 @@ class Mode:
         :type lst: List
         :rtyep: List
         """
+
         if len(lst) <= 1: return lst
         else:
             pivot = lst[0]
@@ -130,6 +178,7 @@ class Mode:
         :type lst: List
         :rtype: List
         """
+
         temp = [0] * max(lst)
         result = [0] * n
 
