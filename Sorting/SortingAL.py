@@ -84,7 +84,6 @@ class Mode:
         # :超过范围剩下的书要一次性压进result中
         # '''
 
-
         while l < len(left) and r < len(right):
             if left[l] < right[r]:
                 result.append(left[l])
@@ -155,7 +154,7 @@ class Mode:
 
         if st < ed:
             bound = self.__partition(lst, st, ed)
-            # bound = self.__randomized_partition(lst, st, ed)    # random
+            # bound = self.__randomized_partition(lst, st, ed)  # random
             self.Classical_QS(lst, st, bound - 1)
             self.Classical_QS(lst, bound + 1, ed)
 
