@@ -162,13 +162,13 @@ class Mode:
         """
         :Pythonic快速排序，平均时间复杂度O(nlgn)
         :type lst: List
-        :rtyep: List
+        :rtype: List
         """
 
         if len(lst) <= 1: return lst
         else:
             pivot = lst[0]
-            return self.Python_QS([x for x in lst[1 : ] if x < pivot]) + \
+            return self.Python_QS([x for x in lst[1:] if x < pivot]) + \
                 [pivot] + self.Python_QS([x for x in lst[1:] if x >= pivot])
 
     def counting_sort(self, lst):
@@ -192,3 +192,10 @@ class Mode:
             temp[lst[c]] -= 1
 
         return result
+
+    def __sift_down(self, lst, st, ed):
+        """
+        :堆排序下沉函数，时间复杂度O(lgn)
+        :type lst: List
+        :type n: int
+        """

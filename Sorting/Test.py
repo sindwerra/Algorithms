@@ -20,5 +20,6 @@ if __name__ == '__main__':
     # print srt.insertion_sort(template2, 2)
     # print srt.merge_sort(template1, 7)
     # print srt.merge_sort(template2, 2)
-    print srt.Python_QS(template1)
-    print srt.Python_QS(template2)
+    # print srt.Python_QS(template1)
+    # print srt.Python_QS(template2)
+    
