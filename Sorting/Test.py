@@ -22,4 +22,5 @@ if __name__ == '__main__':
     # print srt.merge_sort(template2, 2)
     # print srt.Python_QS(template1)
     # print srt.Python_QS(template2)
-    
+    print srt.heap_sort(template1, len(template1))
+    print srt.heap_sort(template2, len(template2))

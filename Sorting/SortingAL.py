@@ -199,3 +199,23 @@ class Mode:
         :type lst: List
         :type n: int
         """
+        lf, rt = 2 * st + 1, 2 * st + 2     # Left child 和 right child
+        lar = st                            # 最大数的坐标，初始值为需要下沉点的坐标
+        if lf <= ed and lst[lf] > lst[st]:
+            lar = lf
+        if rt <= ed and lst[rt] > lst[lar]:
+            lar = rt
+        if lar != st:
+            lst[st], lst[lar] = lst[lar], lst[st]
+            self.__sift_down(lst, lar, ed)
+
+    def __build_max_heap(self, lst):
+        for s in xrange(len(lst) / 2 - 1, -1, -1):
+            self.__sift_down(lst, s, len(lst) - 1)
+
+    def heap_sort(self, lst, n):
+        self.__build_max_heap(lst)
+        for s in xrange(n):
+            lst[0], lst[n - s - 1] = lst[n - s - 1], lst[0]
+            self.__sift_down(lst, 0, n - s - 2)
+        return lst
