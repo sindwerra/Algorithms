@@ -178,20 +178,37 @@ class Mode:
         :rtype: List
         """
 
-        temp = [0] * max(lst)
-        result = [0] * n
+        # 老版本写法，暂时保留，个人感觉新版明显要强
+
+        # temp = [0] * max(lst)
+        # result = [0] * n
+        #
+        # for a in lst:
+        #     temp[a] += 1
+        #
+        # for b in xrange(1, len(temp)):
+        #     temp[b] += temp[b - 1]
+        #
+        # for c in xrange(len(lst) - 1, -1, -1):
+        #     result[temp[lst[c]] - 1] = lst[c]
+        #     temp[lst[c]] -= 1
+        #
+        # return result
+
+        tmp = [0] * (max(lst) + 1)
+        res = [0] * len(lst)
 
         for a in lst:
-            temp[a] += 1
+            tmp[a] += 1
 
-        for b in xrange(1, len(temp)):
-            temp[b] += temp[b - 1]
+        for b in xrange(1, len(tmp)):
+            tmp[b] += tmp[b - 1]
 
-        for c in xrange(len(lst) - 1, -1, -1):
-            result[temp[lst[c]] - 1] = lst[c]
-            temp[lst[c]] -= 1
+        for c in lst:
+            res[tmp[c] - 1] = c
+            tmp[c] -= 1
 
-        return result
+        return res
 
     def __sift_down(self, lst, st, ed):
         """
