@@ -20,6 +20,7 @@ def insert(head, x):
     # 第一种判定是否树本身为空
     # 第二种判定x值小于sec
     # 第三种判定x值大于sec
+    # 对插入节点进行插入判断和安置
 
     if sec == None:
         head = x
@@ -28,4 +29,4 @@ def insert(head, x):
     else:
         sec.right = x
 
-    return head         # 返回头节点
+    return head      # 返回头节点
