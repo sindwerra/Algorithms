@@ -1,0 +1,113 @@
+LF-RT(T, x)
+  y = x.right
+  x.right = y.left
+  if y.left != T.nil
+    y.left.parent = x
+  y.parent = x.parent
+  if x.parent == T.nil
+    T.root = y
+  elif x.parent.right = x
+    x.parent.right = y
+  else
+    x.parent.left = y
+  y.left = x
+  x.parent = y
+
+RB-TRANSPLANT(T, u, v)
+  if u.parent == T.nil
+    T.root = v
+  elif u.parent.right == u
+    u.parent.right = v
+  else
+    u.parent.left = v
+  v.parent = u.parent
+
+RB-INSERT(T, z)
+  x = T.root
+  y = T.nil
+  while x != T.nil
+    y = x
+    if x.val < z.val
+      x = x.right
+    else
+      x = x.left
+  z.parent = y.parent
+  if y == T.nil
+    T.root = z
+  elif y.parent.right == y
+    y.parent.right = z
+  else
+    y.parent.left = z
+  z.left = T.nil
+  z.right = T.nil
+  z.color = RED
+  RB-INSERT-FIX(T, z)
+
+RB-INSERT-FIX(T, z)
+  while z.parent.color == RED
+    if z.parent = z.parent.parent.left
+      y = z.parent.parent.right
+      if y.color == RED
+        y.color = BLACK
+        z.parent.color = BLACK
+        z.parent.parent.color = RED
+        z = z.parent.parent
+      elif z = z.parent.right
+          z = z.parent
+          LF-RT(T, z)
+        z.parent.color = BLACK
+        z.parent.parent.color = RED
+        RT-RT(T, z.parent.parent)
+    else (change left and right)
+  T.root.color = BLACK
+
+RB-DELETE(T, z)
+  y = z
+  y-ori-color = z.color
+  if z.right == T.nil
+    x = z.right
+    TRANSPLANT(T, z, z.right)
+  elif z.left == T.nil
+    x = z.left
+    TRANSPLANT(T, z, z.left)
+  else
+    y = TREE-MIN(T, z.right)
+    y-ori-color = y.color
+    x = y.right
+    if y.parent == z
+      x.parent = y
+    else
+        TRANSPLANT(T, y, y.right)
+        y.right = z.right
+        y.right.parent = y
+      TRANSPLANT(T, z, y)
+      y.left = z.left
+      y.left.parent = y
+      y.color = z.color
+  if y-ori-color == BLACK
+    RB-DELETE-FIX(T, x)
+
+RB-DELETE-FIX(T, x)
+  while T.root != x and x.color == BLACK
+    if x == x.parent.left
+      w = x.parent.right
+      if w.color == RED
+        w.color = BLACK
+        x.parent.color = RED
+        LF.RT(x.parent)
+        w = x.parent.right
+      if w.left.color == BLACK and w.right.color == BLACK
+        w.color = RED
+        x = x.parent
+      elif w.right.color == BLACK
+          w.color = RED
+          w.left.color = BLACK
+          RT-RT(T, w)
+          w = x.parent.right
+        w.color = x.parent.color
+        w.right.color = BLACK
+        x.parent.color = BLACK
+        LF-RT(T, x.parent)
+        T.root = x
+    else(change left and right)
+  x.color = BLACK

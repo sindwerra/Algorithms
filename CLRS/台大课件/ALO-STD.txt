@@ -1,0 +1,54 @@
+FIND-MAX-CROSSING-SUBARRAY(A, st, mid, ed)
+  lf_sum, rt_sum = 0, 0
+  lf_p, rt_p = 0, 0
+
+  sum = 0
+  for i from mid to st
+    sum += A[i]
+    if sum > lf_sum
+      lf_sum = sum
+      lf_p = i
+
+  sum = 0
+  for i from mid + 1 to ed
+    sum += A[i]
+    if sum > rt_sum
+      rt_sum = sum
+      rt_p = i
+
+  return (lf_p, rt_p, lf_sum + rt_sum)
+
+FIND-MAX-ARRAY(A, st, ed)
+  if st == ed
+    return (A[st], st, ed)
+  else
+    mid = (st + ed) / 2
+    l_t = FIND-MAX-ARRAY(A, st, mid)
+    r_t = FIND-MAX-ARRAY(A, mid + 1, ed)
+    c_t = FIND-MAX-CROSSING-SUBARRAY(T, st, mid, ed)
+
+  if l_t ≥ r_t and l_t ≥ c_t
+    return l_t
+  elif r_t ≥ l_t and r_t ≥ c_t
+    return r_t
+  else
+    return c_t
+
+GRAPH-BFS(G, s)
+  for vertex u in G
+    u.color = WHITE
+    u.d = ∞
+    u.pi = NIL
+  s.color = GRAY
+  s.d = 0
+  s.pi = NIL
+  Q = {}
+  while Q is not empty
+    u = DEQUE(Q)
+    for v in u.adj
+      if v.color == WHITE
+        v.color = GRAY
+        v.d = u.d + 1
+        v.pi = u
+        ENQUEUE(v)
+      u.color = BLACK
