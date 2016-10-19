@@ -210,6 +210,8 @@ class Mode:
 
         return res
 
+# 递归版sift_down
+
     def __sift_down(self, lst, st, ed):
         """
         :堆排序下沉函数，时间复杂度O(lgn)
@@ -226,13 +228,59 @@ class Mode:
             lst[st], lst[lar] = lst[lar], lst[st]
             self.__sift_down(lst, lar, ed)
 
+# 迭代版sift_down
+
+    # def __sift_down(self, lst, st, ed):
+    #     while st <= (ed + 1) / 2 - 1:
+    #         if 2 * st + 2 <= ed:
+    #             lar = 0
+    #             if lst[st * 2 + 1] > lst[st * 2 + 2]:
+    #                 lar = st * 2 + 1
+    #             else:
+    #                 lar = st * 2 + 2
+    #             if lst[lar] > lst[st]:
+    #                 lst[lar], lst[st] = lst[st], lst[lar]
+    #                 st = lar
+    #             else:
+    #                 break
+    #         elif lst[2 * st + 1] > lst[st]:
+    #             lst[2 * st + 1], lst[st] = lst[st], lst[st * 2 + 1]
+    #             st = st * 2 + 1
+    #         else:
+    #             break
+
     def __build_max_heap(self, lst):
         for s in xrange(len(lst) / 2 - 1, -1, -1):
             self.__sift_down(lst, s, len(lst) - 1)
 
     def heap_sort(self, lst, n):
+        """
+        :堆排序主函数, 时间复杂度O(n)
+        :type lst: List
+        :type n: int
+        :堆排序有没有可能写出迭代的sift_down函数？
+        """
         self.__build_max_heap(lst)
         for s in xrange(n):
             lst[0], lst[n - s - 1] = lst[n - s - 1], lst[0]
             self.__sift_down(lst, 0, n - s - 2)
+        return lst
+
+    def radix_sort(self, lst, number_of_bits):
+        """
+        :基数排序，时间复杂度O(kn),k为最大数的位数
+        :type lst: List
+        :type number_of_bits: int
+        """
+        binArray = [[] for _ in xrange(10)]
+        col = 1
+        for s in xrange(number_of_bits):
+            for a in lst:
+                index = (a / col) % 10
+                binArray[index].append(a)
+            lst = []
+            for array in binArray:
+                while len(array) != 0:
+                    lst.append(array.pop(0))
+            col *= 10
         return lst
