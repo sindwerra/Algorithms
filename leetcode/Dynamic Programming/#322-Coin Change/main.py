@@ -15,7 +15,7 @@ return -1.
 '''
 
 # 标准动归算法啊，第一个自己解出来的还有点难度的DP，哈哈哈
-# Beat 28.04%
+# Beat 89.95%
 
 class Solution(object):
     def coinChange(self, coins, amount):
@@ -26,7 +26,7 @@ class Solution(object):
         """
         res = [0] * (amount + 1)
         for s in xrange(1, amount + 1):
-            q = 1000000
+            q = sys.maxint
             for i in coins:        # 只需要在存在的硬币种类中遍历就行了，节省非常多的时间这一步
                 if s - i >= 0:
                     q = min(q, res[s - i] + 1)
@@ -34,4 +34,4 @@ class Solution(object):
 
         # 如果给的值无法打散，那这个值减去任何现存币值也不可能被打散（动归基本法）
 
-        return res[amount] if res[amount] <> 1000000 else -1
+        return res[amount] if res[amount] <> sys.maxint else -1

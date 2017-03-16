@@ -26,3 +26,28 @@ class Solution(object):
             else: store[s] = 1
 
         return 0
+
+
+'''
+Moore's voter Algorithm做这道题，并且输入保证有一个majorityElement
+所以只需要algorithm的第一个步骤就行了
+Beat 78.97%
+'''
+
+class Solution(object):
+    def majorityElement(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        mj_index, count = 0, 0
+        n = len(nums)
+        for s in range(n):
+            if nums[s] == nums[mj_index]:
+                count += 1
+            else:
+                count -= 1
+                if not count:
+                    mj_index = s
+                    count = 1
+        return nums[mj_index]

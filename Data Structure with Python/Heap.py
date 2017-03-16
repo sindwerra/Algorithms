@@ -62,12 +62,13 @@ class Priority_Queue(Heap):
         return self.store[0]
 
     def heap_extract_max(self):
-        if len(self.store) <= 1:
-            return 'Error! Heap underflow'
+        # if len(self.store) <= 1:
+        #     return 'Error! Heap underflow'
+        assert len(self.store) > 1, 'Error! Heap underflow'
         lar = self.store[0]
         self.store[-1], self.store[0] = self.store[0], self.store[-1]
         self.store.remove(lar)
-        
+
 if __name__ == '__main__':
     template1 = [3, 4, 9, -10, 20, 0, 156]
     template2 = [1, 0]
