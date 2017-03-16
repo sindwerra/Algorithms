@@ -19,6 +19,7 @@ c) Replace a character
 三种情况里面的最小值加一
 另外牛客网还有三种操作代价不同的变体，不过基本是一样的概念
 Beat 83.49%
+
 '''
 
 class Solution(object):
