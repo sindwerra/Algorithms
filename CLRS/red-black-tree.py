@@ -1,201 +1,206 @@
-# coding=utf-8
+class RBTree:
+    def __init__(self):
+        self.nil = RBTreeNode(0)
+        self.root = self.nil
 
-# CLRS中红黑树的Python实现
-
-class TreeNode(object):
+class RBTreeNode:
     def __init__(self, x):
-        self.val = x
+        self.key = x
         self.left = None
         self.right = None
-        self.color = None
         self.parent = None
+        self.color = 'black'
 
-class Red_Black_Tree(object):
-    def __init__(self):
-        """""""""
-        :构造函数
-        :root作为头节点指针
-        :dummy作为尾部空节点存在
-        """""""""
-        self.root = None
-        self.dummy = TreeNode(None)
-        self.dummy.color = 'Black'
+class Solution:
+    def InorderTreeWalk(self, x):
+        if x != None:
+            self.InorderTreeWalk(x.left)
+            if x.key != 0:
+                print 'key:', x.key, 'parent:', x.parent.key, 'color:', x.color
+            self.InorderTreeWalk(x.right)
 
-    def insert(self, z):
-        """""""""
-        :插入函数
-        :z type: TreeNode
-        """""""""
-        x = self.root
-        y = self.dummy
-        while x != self.dummy:
-            y = x
-            if x.val < z.val:
-                x = x.right
-            else:
-                x = x.left
-        z.parent = y
-        if y == self.dummy:
-            self.root = z
-        elif y.val < z.val:
-            y.right = z
+    def LeftRotate(self, T, x):
+        y = x.right
+        x.right = y.left
+        if y.left != T.nil:
+            y.left.parent = x
+        y.parent = x.parent
+        if x.parent == T.nil:
+            T.root = y
+        elif x == x.parent.left:
+            x.parent.left = y
         else:
-            y.left = z
-        z.left = self.dummy
-        z.right = self.dummy
-        z.color = 'Red'
-        self.insert_fix(z)
+            x.parent.right = y
+        y.left = x
+        x.parent = y
 
-    def insert_fix(self, z):
-        """""""""
-        :插入修正函数
-        :z type: TreeNode
-        """""""""
-        while z.parent.color == 'Red':
-            if z.parent.parent.left == z.parent:
+    def RightRotate(self, T, x):
+        y = x.left
+        x.left = y.right
+        if y.right != T.nil:
+            y.right.parent = x
+        y.parent = x.parent
+        if x.parent == T.nil:
+            T.root = y
+        elif x == x.parent.right:
+            x.parent.right = y
+        else:
+            x.parent.left = y
+        y.right = x
+        x.parent = y
+
+    def RBInsert(self, T, z):
+        # init z
+        z.left = T.nil
+        z.right = T.nil
+        z.parent = T.nil
+
+        y = T.nil
+        x = T.root
+        while x != T.nil:
+            y = x
+            if z.key < x.key:
+                x = x.left
+            else:
+                x = x.right
+        z.parent = y
+        if y == T.nil:
+            T.root = z
+        elif z.key < y.key:
+            y.left = z
+        else:
+            y.right = z
+        z.left = T.nil
+        z.right = T.nil
+        z.color = 'red'
+        self.RBInsertFixup(T,z)
+
+    def RBInsertFixup(self, T, z):
+        while z.parent.color == 'red':
+            if z.parent == z.parent.parent.left:
                 y = z.parent.parent.right
-                if y.color == 'Red':
-                    y.color = 'Black'
-                    z.parent.color = 'Black'
-                    z.parent.parent.color = 'Red'
+                if y.color == 'red':
+                    z.parent.color = 'black'
+                    y.color = 'black'
+                    z.parent.parent.color = 'red'
                     z = z.parent.parent
                 else:
                     if z == z.parent.right:
                         z = z.parent
-                        self.left_rotate(z)
-                    z.parent.color = 'Black'
-                    z.parent.parent.color = 'Red'
-                    self.right_rotate(z.parent.parent)
+                        self.LeftRotate(T, z)
+                    z.parent.color = 'black'
+                    z.parent.parent.color = 'red'
+                    self.RightRotate(T,z.parent.parent)
             else:
                 y = z.parent.parent.left
-                if y.color == 'Red':
-                    y.color = 'Black'
-                    z.parent.color = 'Black'
-                    z.parent.parent.color = 'Red'
+                if y.color == 'red':
+                    z.parent.color = 'black'
+                    y.color = 'black'
+                    z.parent.parent.color = 'red'
                     z = z.parent.parent
                 else:
                     if z == z.parent.left:
                         z = z.parent
-                        self.right_rotate(z)
-                    z.parent.color = 'Black'
-                    z.parent.parent.color = 'Red'
-                    self.left_rotate(z.parent.parent)
-        self.root.color = 'Black'
+                        self.RightRotate(T, z)
+                    z.parent.color = 'black'
+                    z.parent.parent.color = 'red'
+                    self.LeftRotate(T, z.parent.parent)
+        T.root.color = 'black'
 
-    def delete(self, z):
-        """""""""
-        :删除函数
-        :z type: TreeNode
-        """""""""
-        y = z
-        y_ori_color = z.color
-        if z.left == self.dummy:
-            x = z.right
-            self.transplant(z, z.right)
-        elif z.right == self.dummy:
-            x = z.left
-            self.transplant(z, z.left)
-        else:
-            y = self.tree_min(z.right)    # tree_min函数还没写
-            y_ori_color = y.color
-            x = y.right
-            if y.parent == z:
-                x.parent = y
-            else:
-                self.transplant(y, y.right)
-                y.right = z.right
-                y.right.parent = y
-            self.transplant(z, y)
-            y.left = z.left
-            y.left.parent = y
-            y.color = z.color
-        if y_ori_color == 'Black':
-            self.delete_fix(x)
-
-    def delete_fix(self, x):
-        """""""""
-        :删除修正函数
-        :x type: TreeNode
-        """""""""
-        while self.dummy != x and x.color == 'Black':
-            if x.parent.left == x:
-                w = x.parent.right
-                if w.color == 'Red':
-                    w.color = 'Black'
-                    x.parent.color = 'Red'
-                    self.left_rotate(x.parent)
-                    w = x.parent.right
-                if w.left.color == 'Black' and w.right.color == 'Black':
-                    w.color = 'Red'
-                    x = x.parent
-                else:
-                    if w.right.color == 'Black':
-                        w.left.color = 'Black'
-                        w.color = 'Red'
-                        self.right_rotate(w)
-                        w = x.parent.right
-                    w.color = x.parent.color
-                    w.right.color = 'Black'
-                    x.parent.color = 'Black'
-                    self.left_rotate(x.parent)
-                    self.root = x
-            else:
-                w = x.parent.left
-                if w.color == 'Red':
-                    w.color = 'Black'
-                    x.parent.color = 'Red'
-                    self.right_rotate(x.parent)
-                    w = x.parent.left
-                if w.left.color == 'Black' and w.right.color == 'Black':
-                    w.color = 'Red'
-                    x = x.parent
-                else:
-                    if w.left.color == 'Black':
-                        w.right.color = 'Black'
-                        w.color = 'Red'
-                        self.left_rotate(w)
-                        w = x.parent.left
-                    w.color = x.parent.color
-                    w.left.color = 'Black'
-                    x.parent.color = 'Black'
-                    self.right_rotate(x.parent)
-                    self.root = x
-        x.color = 'Black'
-
-    def transplant(self, u, v):
-        """""""""
-        :移植函数
-        :u type: TreeNode
-        :v type: TreeNode
-        """""""""
-        if u.parent == self.dummy:
-            self.root = v
-        elif u.parent.left == u:
+    def RBTransplant(self, T, u, v):
+        if u.parent == T.nil:
+            T.root = v
+        elif u == u.parent.left:
             u.parent.left = v
         else:
             u.parent.right = v
         v.parent = u.parent
 
-
-    def left_rotate(self, z):
-        """""""""
-        :左转函数
-        :z type: TreeNode
-        """""""""
-        y = z.right
-        z.right = y.left
-        if y.left != None:
-            y.left.parent = z
-        y.parent = z.parent
-        if z.parent == self.dummy:
-            self.root = y
-        elif z.parent.left == z:
-            z.parent.left = y
+    def RBDelete(self, T, z):
+        y = z
+        y_original_color = y.color
+        if z.left == T.nil:
+            x = z.right
+            self.RBTransplant(T, z, z.right)
+        elif z.right == T.nil:
+            x = z.left
+            self.RBTransplant(T, z, z.left)
         else:
-            z.parent.right = y
-        y.left = z
-        z.parent = y
+            y = self.TreeMinimum(z.right)
+            y_original_color = y.color
+            x = y.right
+            if y.parent == z:
+                x.parent = y
+            else:
+                self.RBTransplant(T, y, y.right)
+                y.right = z.right
+                y.right.parent = y
+            self.RBTransplant(T, z, y)
+            y.left = z.left
+            y.left.parent = y
+            y.color = z.color
+        if y_original_color == 'black':
+            self.RBDeleteFixup(T, x)
 
-if __name__ == '__main__':
-    a = Red_Black_Tree()
-    # print a.dummy.color
+    def RBDeleteFixup(self, T, x):
+        while x != T.root and x.color == 'black':
+            if x == x.parent.left:
+                w = x.parent.right
+                if w.color == 'red':
+                    w.color = 'black'
+                    x.parent.color = 'red'
+                    self.LeftRotate(T, x.parent)
+                    w = x.parent.right
+                if w.left.color == 'black' and w.right.color == 'black':
+                    w.color = 'red'
+                    x = x.parent
+                else:
+                    if w.right.color == 'black':
+                        w.left.color = 'black'
+                        w.color = 'red'
+                        self.RightRotate(T, w)
+                        w = x.parent.right
+                    w.color = x.parent.color
+                    x.parent.color = 'black'
+                    w.right.color = 'black'
+                    self.LeftRotate(T, x.parent)
+                    x = T.root
+            else:
+                w = x.parent.left
+                if w.color == 'red':
+                    w.color = 'black'
+                    x.parent.color = 'red'
+                    self.RightRotate(T, x.parent)
+                    w = x.parent.left
+                if w.right.color == 'black' and w.left.color == 'black':
+                    w.color = 'red'
+                    x = x.parent
+                else:
+                    if w.left.color == 'black':
+                        w.right.color = 'black'
+                        w.color = 'red'
+                        self.LeftRotate(T, w)
+                        w = x.parent.left
+                    w.color = x.parent.color
+                    x.parent.color = 'black'
+                    w.left.color = 'black'
+                    self.RightRotate(T, x.parent)
+                    x = T.root
+        x.color = 'black'
+
+    def TreeMinimum(self, x):
+        while x.left != T.nil:
+            x = x.left
+        return x
+
+nodes = [11,2,14,1,7,15,5,8,4]
+T = RBTree()
+s = Solution()
+for node in nodes:
+    s.RBInsert(T,RBTreeNode(node))
+
+s.InorderTreeWalk(T.root)
+
+s.RBDelete(T,T.root)
+print 'after delete'
+s.InorderTreeWalk(T.root)
