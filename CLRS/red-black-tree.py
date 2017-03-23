@@ -144,6 +144,9 @@ class Solution:
         if y_original_color == 'black':
             self.RBDeleteFixup(T, x)
 
+
+
+
     def RBDeleteFixup(self, T, x):
         while x != T.root and x.color == 'black':
             if x == x.parent.left:

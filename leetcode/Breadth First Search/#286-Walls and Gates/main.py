@@ -68,10 +68,3 @@ class Solution(object):
                     rooms[x + i][y + j] != 0:
                         rooms[x + i][y + j] = rooms[x][y] + 1
                         queue.put([x + i, y + j])
-
-
-
-
-
-
-                
