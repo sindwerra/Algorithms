@@ -75,6 +75,8 @@ class Solution:
         z.color = 'red'
         self.RBInsertFixup(T,z)
 
+
+
     def RBInsertFixup(self, T, z):
         while z.parent.color == 'red':
             if z.parent == z.parent.parent.left:
