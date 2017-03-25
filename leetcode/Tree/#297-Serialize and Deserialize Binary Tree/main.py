@@ -105,3 +105,63 @@ class Codec:
 # Your Codec object will be instantiated and called as such:
 # codec = Codec()
 # codec.deserialize(codec.serialize(root))
+
+
+'''
+这里是BFS算法的序列化，其实想出来之后再看的确比前中后序遍历的算法好理解多了
+Beat 97.58%
+'''
+
+class Codec:
+
+    def serialize(self, root):
+        """Encodes a tree to a single string.
+        
+        :type root: TreeNode
+        :rtype: str
+        """
+        q = collections.deque([root])
+        res = ''
+        
+        while q:
+            node = q.pop()
+            if node:
+                res += (str(node.val) + '!')
+                q.appendleft(node.left)
+                q.appendleft(node.right)
+            else:
+                res += '#!'
+                continue
+            
+        return res
+
+    def deserialize(self, data):
+        """Decodes your encoded data to tree.
+        
+        :type data: str
+        :rtype: TreeNode
+        """
+        lst = data.split('!')
+        tmp = []
+        n = len(lst)
+        
+        for node in lst:
+            if node == '#':
+                tmp.append(None)
+            else:
+                tmp.append(TreeNode(node))
+        
+        offset = 0
+        
+        for i in xrange(n):
+            if not tmp[i]:
+                offset += 2
+                continue
+            left = 2 * i + 1 - offset
+            right = 2 * i + 2 - offset
+            if left < n:
+                tmp[i].left = tmp[left]
+            if right < n:
+                tmp[i].right = tmp[right]
+        
+        return tmp[0]
