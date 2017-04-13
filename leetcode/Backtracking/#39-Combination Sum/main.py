@@ -85,3 +85,38 @@ class Solution(object):
             tmp.append(candidates[i])
             self.helper(candidates, res, target - candidates[i], tmp, i, ed)
             tmp.pop()
+
+
+'''
+加了一行判断瞬间快了
+'''
+
+class Solution(object):
+    def combinationSum(self, candidates, target):
+        """
+        :type candidates: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        candidates.sort()
+        res, tmp = [], []
+        self.helper(candidates, res, target, tmp, 0, len(candidates))
+        return res
+        
+    def helper(self, candidates, res, target, tmp, st, ed):
+        if target == 0:
+            ref = tmp[:]
+            res.append(ref)
+            return 
+        
+        if target < 0:
+            return 
+        
+        for i in xrange(st, ed):
+            if candidates[i] > target:
+                break
+            if i - 1 >= 0 and i > st and candidates[i] == candidates[i - 1]:
+                continue
+            tmp.append(candidates[i])
+            self.helper(candidates, res, target - candidates[i], tmp, i, ed)
+            tmp.pop()
