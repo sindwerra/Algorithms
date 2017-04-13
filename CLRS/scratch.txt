@@ -19,3 +19,26 @@ Consequently, this conformational rearrangement could generate electrochemical s
 as the data of monitoring. In addition, the continuous-flow diffusion filter(CDF) protect the probe from
 other interferents. 
 
+For the second sensitivity problem, the paper chose the DOX-specific aptamer probe to do the experiment.
+And this probe will produce an easily measurable change in current when the sensor is using SWV. Then relative
+current change will be measured and be used to get the DOX concentration. According to the data the paper got,
+the DOX probe they designed has a range from 10nM to 10uM for concentration of DOX. And their experiment also
+proved that this DOX-specific probe did not respond any other agents commonly administered with DOX even their
+concentration is 1000-fold of current concentration of DOX. 
+
+For the last problem about pretection from other big molecules. As I mentioned before, they used a filter called
+CDF to resolve this problem. CDF is a flowing, liquid-phase filter. And they use CDF to established a vertically
+stacked laminar stream which is actually a buffer between the blood and MEDIC device. Theoretically said, the 
+laminar stream between electrodes and whole blood has relatively high diffusivity compared to the interferents 
+in blood such as albumin, immunoglobulin and fibrinogen. That makes those interferents cannot reach and get 
+contact with electrodes.
+
+Beside of those three main problems mentioned, long-term measurement need high signal to noise ratio (SNRs) to 
+get accurate information. The traditional way to resolve this SNRs problem is using more reference probe to make 
+ a differential measurement. Indeed, the differential measurement has significant effect on counteracting drift
+ to maintain sufficient SNR. But it's hard to fabricate those reference probes or sensors and often lead some new
+ problems. According to this situation, the paper claimed that they used KDM method to overcome the drift problem
+ by using only one probe. Basically, the KDM method exploits the differences between target-bound and unbound
+ probe as the unbound probe has slow electron transfer rate compared to bound probe. And according to the paper, 
+ KDM reduced the drift from ~30 to <2% in 2uM DOX pulse during 90 minutes. This made more than 300% improvement
+ in SNR compared with the situation KDM was not used.
