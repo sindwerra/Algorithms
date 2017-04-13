@@ -1,0 +1,15 @@
+This article introduced a new kind of biosensor that is capable of continuously measuring and 
+monitoring specific molecules in the bloodstream and uses those information to make sure every 
+patients get the optimal drug doses for their own situations. And this biosensor called 
+microfluidic electrochemical detector for in vivo continuous monitoring, MEDIC for abbreviation. 
+
+The article introduced the background of the continuous, real-time measurement tech and illustrated
+the difficulties for current development real-time tracking biosensor. And actually those difficulties
+are also the basic and general ideas for the therapeutic that this kind of biosensors used for. This
+principle is "the right drug, at the right dose, and at the right time" according to the article. 
+
+Basically, the design of this real-time measurement device has three main challenges. The first is the
+problem of continuous operation. The second is the high sensitivity requirements of device. The last
+one is the high resistance of other interferents to keep high SNRs for long period using purpose.
+
+For the first problem, 

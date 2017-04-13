@@ -53,3 +53,35 @@ class Solution(object):
         res, tmp = [], []
         self.CS(0, target, res, candidates, tmp, 0)
         return res
+
+'''
+添加了查重的语句，leetcode本身的代码就有问题，所以这个才是正确答案
+'''
+
+class Solution(object):
+    def combinationSum(self, candidates, target):
+        """
+        :type candidates: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        candidates.sort()
+        res, tmp = [], []
+        self.helper(candidates, res, target, tmp, 0, len(candidates))
+        return res
+        
+    def helper(self, candidates, res, target, tmp, st, ed):
+        if target == 0:
+            ref = tmp[:]
+            res.append(ref)
+            return 
+        
+        if target < 0:
+            return 
+        
+        for i in xrange(st, ed):
+            if i - 1 >= 0 and i > st and candidates[i] == candidates[i - 1]:
+                continue
+            tmp.append(candidates[i])
+            self.helper(candidates, res, target - candidates[i], tmp, i, ed)
+            tmp.pop()
