@@ -12,4 +12,10 @@ Basically, the design of this real-time measurement device has three main challe
 problem of continuous operation. The second is the high sensitivity requirements of device. The last
 one is the high resistance of other interferents to keep high SNRs for long period using purpose.
 
-For the first problem, 
+For the first problem, MEDIC device used a conformation-changing aptamer probe to bind the target molecule.
+And this probe is attached on one terminus to an electrode within the MEDIC device. That means this probe
+can detect for a specific molecule and undergoes the conformational rearrangement of molecule continuously.
+Consequently, this conformational rearrangement could generate electrochemical signal that could be used
+as the data of monitoring. In addition, the continuous-flow diffusion filter(CDF) protect the probe from
+other interferents. 
+
