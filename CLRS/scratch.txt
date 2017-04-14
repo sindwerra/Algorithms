@@ -35,10 +35,26 @@ contact with electrodes.
 
 Beside of those three main problems mentioned, long-term measurement need high signal to noise ratio (SNRs) to 
 get accurate information. The traditional way to resolve this SNRs problem is using more reference probe to make 
- a differential measurement. Indeed, the differential measurement has significant effect on counteracting drift
- to maintain sufficient SNR. But it's hard to fabricate those reference probes or sensors and often lead some new
- problems. According to this situation, the paper claimed that they used KDM method to overcome the drift problem
- by using only one probe. Basically, the KDM method exploits the differences between target-bound and unbound
- probe as the unbound probe has slow electron transfer rate compared to bound probe. And according to the paper, 
- KDM reduced the drift from ~30 to <2% in 2uM DOX pulse during 90 minutes. This made more than 300% improvement
- in SNR compared with the situation KDM was not used.
+a differential measurement. Indeed, the differential measurement has significant effect on counteracting drift
+to maintain sufficient SNR. But it's hard to fabricate those reference probes or sensors and often lead some new
+problems. According to this situation, the paper claimed that they used KDM method to overcome the drift problem
+by using only one probe. Basically, the KDM method exploits the differences between target-bound and unbound
+probe as the unbound probe has slow electron transfer rate compared to bound probe. And according to the paper, 
+KDM reduced the drift from ~30 to <2% in 2uM DOX pulse during 90 minutes. This made more than 300% improvement
+in SNR compared with the situation KDM was not used.
+
+The experiments did before showed that MEDIC device is compatible for high sensitivity and specific requirement.
+And the modular architecture of MEDIC device demonstrated that this device could be used in a wide range of 
+target molecules by just simply chaging the aptamer probes. The great adaptivity had been demonstrated.
+
+There are still some problems need to consider for this study. The first thing this article mentioned is that 
+MEDIC is good for detecting some kinds of drugs. But in some situation, some other drugs effect is reflected 
+on their metabolites or their drug-protein complexes. That means the device should develop separate probe to
+detect drug itself, its metabolites and complexes respectively. It gives a challenge to design of MEDIC device.
+The article also mentioned that some aptamer with advanced selection techniques and broad spectrum could be used
+to solve this problem. Secondly, the experiments' duration time took and mentioned in this article are all about
+one to two hours approximately. Generally said, this duration time is enough to do most of clinical operations.
+However, if the effective operation time could be longer then some chronic care metioned in article could be did.
+Additionally, the MEDIC didn't use in the real human patients but just used to detect whole human blood, that's 
+two different situations and need more extensive test to fulfill the final application on clinical.
+
