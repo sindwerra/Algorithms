@@ -43,3 +43,39 @@ class Solution(object):
             if row + col == count + i:
                 return False
         return True
+
+'''
+用set来检查对角线攻击的方法
+Beat 94.36%
+'''
+
+class Solution(object):
+    def totalNQueens(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        col, left_dia, right_dia = set([]), set([]), set([])
+        count = [0]
+        return self.helper(0, count, n, col, left_dia, right_dia)
+
+    def helper(self, row, count, n, col, left_dia, right_dia):
+        for i in xrange(n):
+            if i in col:
+                continue
+            if (row - i) in left_dia:
+                continue
+            if (row + i) in right_dia:
+                continue
+            if row >= n - 1:
+                count[0] += 1
+            else:
+                col.add(i)
+                left_dia.add(row - i)
+                right_dia.add(row + i)
+                self.helper(row + 1, count, n, col, left_dia, right_dia)
+                col.remove(i)
+                left_dia.remove(row - i)
+                right_dia.remove(row + i)
+        
+        return count[0]
