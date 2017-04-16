@@ -83,3 +83,45 @@ class Solution(object):
             cur = cur.next
             turtle = turtle.next
         return cur
+
+
+'''
+更加简洁明了的版本
+'''
+
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def detectCycle(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        if not head:
+            return None
+        
+        slow = head.next
+        if not slow:
+            return None
+            
+        fast = head.next.next
+        if not fast:
+            return None
+
+        while slow != fast and fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        
+        if not fast or not fast.next:
+            return None
+        
+        cur = head
+        while cur != fast:
+            cur = cur.next
+            fast = fast.next
+        
+        return cur
