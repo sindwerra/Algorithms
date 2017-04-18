@@ -74,3 +74,50 @@ class Solution(object):
             else:
                 cur = cur.next
         return res
+
+'''
+逻辑比较简洁的一个版本
+Beat 77.07%
+'''
+
+class Solution(object):
+    def reverseKGroup(self, head, k):
+        """
+        :type head: ListNode
+        :type k: int
+        :rtype: ListNode
+        """
+        dummy = ListNode('a')
+        dummy.next = head
+        head = dummy
+        cur = head
+
+        for i in xrange(k + 1):
+            if not cur:
+                return dummy.next
+            cur = cur.next
+        
+        count = 0
+        pre, cur = head, head
+        while cur:
+            cur = cur.next
+            count += 1
+            if not count % k and cur:
+                tail = pre.next
+                root = cur.next
+                pre.next = self.reverse(pre.next, k)
+                tail.next = root
+                pre = tail
+                cur = tail
+        
+        return dummy.next
+
+    def reverse(self, root, k):
+        pre, nxt = None, None
+        while k:
+            nxt = root.next
+            root.next = pre
+            pre = root
+            root = nxt
+            k -= 1
+        return pre
