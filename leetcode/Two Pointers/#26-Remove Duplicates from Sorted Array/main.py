@@ -37,3 +37,25 @@ class Solution(object):
                 st += 1
                 ed += 1
         return n
+
+'''
+这个才是标准双指针的做法
+Beat 88.06%
+公司：Microsoft, Bloomberg, Facebook
+'''
+
+class Solution(object):
+    def removeDuplicates(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if not nums:
+            return 0
+        index = 0
+        
+        for i in xrange(len(nums)):
+            if nums[index] != nums[i]:
+                nums[index + 1], nums[i] = nums[i], nums[index + 1]
+                index += 1
+        return index + 1
