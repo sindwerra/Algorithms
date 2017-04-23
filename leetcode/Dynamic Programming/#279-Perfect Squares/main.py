@@ -26,4 +26,29 @@ class Solution(object):
                 q = min(q, 1 + res[i - j * j])
             res[i] = q
         return res[n]
-        
+
+
+'''
+下面是纯数学方法，还没搞懂是怎么回事
+Beat 96.59%
+'''
+
+class Solution(object):
+    def numSquares(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        while n % 4 == 0:
+            n /= 4
+        if n % 8 == 7:
+            return 4
+
+        for i in xrange(n+1):
+            temp = i * i
+            if temp <= n:
+                if int((n - temp)** 0.5 ) ** 2 + temp == n: 
+                    return 1 + (0 if temp == 0 else 1)
+            else:
+                break
+        return 3
