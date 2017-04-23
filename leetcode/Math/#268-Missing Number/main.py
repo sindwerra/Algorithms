@@ -26,3 +26,19 @@ class Solution(object):
             bucket[s] = 1
 
         return bucket.index(0)
+
+'''
+另外一种做法，求1到n的和然后减去当前数组的和就是丢掉的那个数字了
+'''
+
+class Solution(object):
+    def missingNumber(self, A):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        n = len(A)
+        result = 0
+        for i in xrange(1, n + 1):
+            result += i
+        return result - sum(A)
