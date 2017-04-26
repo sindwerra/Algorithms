@@ -2,6 +2,10 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
+'''
+这里实现的时候一个没有parent指针的BST
+'''
+
 class TreeNode(object):
     def __init__(self, x):
         self.val = x
@@ -77,4 +81,28 @@ class BST(object):
             root = root.right
         return root
 
-    
+    '''
+    一个需要背下来的程序段
+    '''
+
+    def delete(self, root, value):
+        if not root:
+            return None
+        
+        if root.val < value:
+            root.right = self.delete(root.right, value)
+        elif root.val > value:
+            root.left = self.delete(root.left, value)
+        else:
+            if not root.left:
+                tmp = root.right
+                root = None
+                return tmp
+            elif not root.right:
+                tmp = root.left
+                root = None
+                return tmp
+            tmp = self.tree_minimum(root.right)
+            root.val = tmp.val
+            root.right = self.delete(root.right, root.val)
+        return tmp
