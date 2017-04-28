@@ -73,3 +73,52 @@ class Solution(object):
                 return False
         
         return True
+
+
+'''
+下面是用Counter做的代码，稍微干净一点
+'''
+
+class Solution(object):
+    def minWindow(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: str
+        """
+        t_check = collections.Counter()
+        s_check = collections.Counter()
+        n = len(s)
+
+        for char in t:
+            t_check[char] += 1
+        
+        ptr = 0
+        length = sys.maxint
+        count = 0
+        result = ''
+        for i in xrange(n):
+            while ptr < n and not self.contain(s_check, t_check):
+                s_check[s[ptr]] += 1
+                ptr += 1
+                count += 1
+            
+            if self.contain(s_check, t_check) and count < length:
+                length = count
+                result = s[i : i + count]
+            elif ptr >= n and not self.contain(s_check, t_check):
+                break
+            
+            s_check[s[i]] -= 1
+            count -= 1
+            if s_check[s[i]] == 0:
+                del s_check[s[i]]
+
+        return result
+
+    def contain(self, s_check, t_check):
+        for key, value in t_check.items():
+            if s_check[key] == 0 or s_check[key] < value:
+                return False
+        
+        return True
