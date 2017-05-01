@@ -62,3 +62,47 @@ class Solution(object):
         res = []
         self.GP(nums, res, 0, len(nums))
         return res
+
+
+'''
+迭代版本
+'''
+
+class Solution(object):
+    def permute(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        permuatations = []
+        
+        if not nums:
+            return []
+        
+        n = len(nums)
+        stack = []
+        stack.append(-1)
+
+        while stack:
+            last = stack.pop()
+            nxt = -1
+
+            for i in xrange(last + 1, n):
+                if i not in stack:
+                    nxt = i
+                    break
+            
+            if nxt == -1:
+                continue
+            
+            stack.append(nxt)
+            for i in xrange(n):
+                if i not in stack:
+                    stack.append(i)
+            
+            permuatation = []
+            for i in xrange(n):
+                permuatation.append(nums[stack[i]])
+            permuatations.append(permuatation)
+        
+        return permuatations
