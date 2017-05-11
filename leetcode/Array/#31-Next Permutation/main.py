@@ -58,7 +58,8 @@ class Solution(object):
         
         for i in xrange(start_pos, end_pos + 1):
             if nums[i] - base > 0:
-                if nums[i] - base < compare:
+                if nums[i] - base <= compare:
+                    compare = nums[i] - base
                     result = i
         
         return result
