@@ -19,6 +19,7 @@ rob tonight without alerting the police.
 就是照九章的做法，既然循环，就把第一个不要，再把最后一个不要，这样就拆成两个
 非循环的做两次动态规划就行了
 Beat 77.32%
+公司：Microsoft
 '''
 
 class Solution(object):
