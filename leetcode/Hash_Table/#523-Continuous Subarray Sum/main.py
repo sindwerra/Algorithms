@@ -58,3 +58,51 @@ class Solution(object):
                     return True
 
         return False
+
+'''
+O(n)的做法，利用了哈希表，prefix sum的数组不是存和，而是存和膜k之后的值，
+这种情况代码需要考虑k等于0的情况，多写一行if在求prefix sum数组时就行了
+答案的java代码把prefix sum数组省略了，代码精简很多，但是hashmap里面加了
+一行不太好理解0， -1键值对用来处理k等于0的情况，个人不喜欢这样写
+Beat 42.40%
+'''
+
+class Solution(object):
+    def checkSubarraySum(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: bool
+        """
+        n = len(nums)
+        if not n:
+            return False
+
+        tmp = [0] * n
+        tmp[0] = nums[0] % k if k != 0 else nums[0]
+        for i in xrange(1, n):
+            if k == 0:
+                if nums[i] == 0 and nums[i - 1] == 0:
+                    return True
+                continue
+            tmp[i] = (tmp[i - 1] + nums[i]) % k
+        
+        if k == 0:
+            return False
+            
+        store = {}
+        for i in xrange(n):
+            if tmp[i] % k == 0 and i >= 1:
+                return True
+            
+            if tmp[i] in store:
+                for index in store[tmp[i]]:
+                    if abs(index - i) >= 2:
+                        return True
+            
+            if tmp[i] in store:
+                store[tmp[i]].append(i)
+            else:
+                store[tmp[i]] = [i]
+
+        return False
