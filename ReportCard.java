@@ -22,6 +22,8 @@ public class ReportCard {
                         String curYear) {
         this.studentId = studentId;
         name = studentName;
+        semester = curSem;
+        year = curYear;
         gpaCheckList.put("A", 4.0);
         gpaCheckList.put("A-", 3.7);
         gpaCheckList.put("B+", 3.3);
@@ -70,14 +72,16 @@ public class ReportCard {
         if (courseIndexer.containsKey(courseName)) {
             System.out.println("The course is already in report and cannot modify!");
             return false;
-        } else if (!gpaCheckList.containsKey(letterGrade)) {
+        } 
+        if (!gpaCheckList.containsKey(letterGrade)) {
             System.out.println("The grade format is incorrect.");
             return false;
-        } else if (courseCredits <= 0) {
+        } 
+        if (courseCredits <= 0) {
             System.out.println("The credits is illegal.");
             return false;
         } else {
-            double numericalGrade = gpaCheckList.get(courseName);
+            double numericalGrade = gpaCheckList.get(letterGrade);
             takenCredits += courseCredits;
             gradePoints += (courseCredits * numericalGrade);
             courseIndexer.put(courseName, numOfCourse++);
