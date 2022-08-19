@@ -14,7 +14,7 @@ Examples:
 s = "3[a]2[bc]", return "aaabcbc".
 s = "3[a2[c]]", return "accaccacc".
 s = "2[abc]3[cd]ef", return "abcabccdcdcdef".
-s = "100[Leetcode]", return what ?
+s = "100[Leetcode2017]", return what ?
 '''
 
 # 吞了翔一样的感觉... 其实原理很简单，就跟用栈做四则运算一样直到见到右括号然后倒出元素运算
